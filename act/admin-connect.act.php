@@ -11,12 +11,15 @@ include('../inc/conn.inc.php');
 if (!empty($_POST['usr']) && !empty($_POST['pwd']))
 {
 
+    $hash1 = md5(htmlspecialchars(stripslashes($_POST['pwd'])));
+    $hash2 = md5($hash1."*1");
 
     $res = mysqli_query($link, 'SELECT * FROM admin WHERE id=1');
     $a = mysqli_fetch_assoc($res);
 
     if (htmlspecialchars(stripslashes($_POST['usr'])) == $a['usr'] && $hash2 == $a['pwd'])
     {
+
         session_start();
 
         $_SESSION['adm_som'] = 'admin';
